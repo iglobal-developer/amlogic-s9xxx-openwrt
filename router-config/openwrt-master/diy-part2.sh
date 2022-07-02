@@ -44,3 +44,7 @@ svn co https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/
 # git apply ../router-config/patches/{0001*,0002*}.patch --directory=feeds/luci
 #
 # ------------------------------- Other ends -------------------------------
+rm -rf package/lean/luci-theme-argon
+git clone https://github.com/jerrykuku/luci-theme-argon.git package/lean/luci-theme-argon
+git clone https://github.com/kuoruan/openwrt-v2ray.git package/v2ray-core
+git clone -b luci2 https://github.com/kuoruan/luci-app-v2ray.git luci-app-v2ray
