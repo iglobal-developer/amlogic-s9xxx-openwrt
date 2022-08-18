@@ -6,11 +6,11 @@
 # warranty of any kind, whether express or implied.
 #
 # This file is a part of the make OpenWrt for Amlogic s9xxx tv box
-# https://github.com/ophub/amlogic-s9xxx-openwrt
+# https://github.com/iglobal-developer/amlogic-s9xxx-openwrt
 #
 # Description: Automatically Packaged OpenWrt for Amlogic s9xxx tv box
 # Copyright (C) 2020- https://github.com/unifreq
-# Copyright (C) 2020- https://github.com/ophub/amlogic-s9xxx-openwrt
+# Copyright (C) 2020- https://github.com/iglobal-developer/amlogic-s9xxx-openwrt
 #
 # Command: sudo ./make -d
 # Command optional parameters please refer to the source code repository
@@ -52,7 +52,7 @@ configfiles_path="${amlogic_path}/common-files"
 bootfs_path="${configfiles_path}/bootfs"
 openvfd_path="${configfiles_path}/rootfs/usr/share/openvfd"
 # Add custom openwrt firmware information
-op_release="etc/flippy-openwrt-release"
+op_release="etc/vsocks-release"
 # Dependency files download repository
 depends_repo="https://github.com/ophub/amlogic-s9xxx-armbian/tree/main/build-armbian"
 # Install/Update script files download repository
@@ -566,7 +566,7 @@ EOF
     fi
 
     # Add firmware information
-    echo "PLATFORM='amlogic'" >>${op_release} 2>/dev/null
+    # echo "PLATFORM='amlogic'" >>${op_release} 2>/dev/null
     echo "FDTFILE='${FDTFILE}'" >>${op_release} 2>/dev/null
     echo "UBOOT_OVERLOAD='${UBOOT_OVERLOAD}'" >>${op_release} 2>/dev/null
     echo "MAINLINE_UBOOT='/lib/u-boot/${MAINLINE_UBOOT}'" >>${op_release} 2>/dev/null
@@ -579,9 +579,9 @@ EOF
     if [[ -f "etc/banner" ]]; then
         op_version=$(echo $(ls lib/modules/ 2>/dev/null))
         op_production_date=$(date +%Y-%m-%d)
-        echo " Install OpenWrt: System → Amlogic Service → Install OpenWrt" >>etc/banner
-        echo " Update  OpenWrt: System → Amlogic Service → Online  Update" >>etc/banner
-        echo " Amlogic Box SoC: ${soc} | OpenWrt Kernel: ${op_version}" >>etc/banner
+        #echo " Install OpenWrt: System → Amlogic Service → Install OpenWrt" >>etc/banner
+        #echo " Update  OpenWrt: System → Amlogic Service → Online  Update" >>etc/banner
+        echo " VSock Box SoC: ${soc} | OpenWrt Kernel: ${op_version}" >>etc/banner
         echo " Production Date: ${op_production_date}" >>etc/banner
         echo "───────────────────────────────────────────────────────────────────────" >>etc/banner
     fi

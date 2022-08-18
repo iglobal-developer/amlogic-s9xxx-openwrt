@@ -1,5 +1,5 @@
 #=====================================================================================
-# https://github.com/ophub/amlogic-s9xxx-openwrt
+# https://github.com/iglobal-developeral-developer/amlogic-s9xxx-openwrt
 # Description: Build OpenWrt with lede
 # Source code repository: https://github.com/coolsnowwolf/lede / Branch: master
 #=====================================================================================
@@ -138,7 +138,7 @@ jobs:
 
       - name: Build OpenWrt firmware
         if: steps.compile.outputs.status == 'success' && !cancelled()
-        uses: ophub/amlogic-s9xxx-openwrt@main
+        uses: iglobal-developer/amlogic-s9xxx-openwrt@main
         with:
           openwrt_path: openwrt/bin/targets/*/*/*rootfs.tar.gz
           openwrt_soc: ${{ github.event.inputs.openwrt_soc }}

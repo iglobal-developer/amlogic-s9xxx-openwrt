@@ -1,5 +1,5 @@
 #=====================================================================================
-# https://github.com/ophub/amlogic-s9xxx-openwrt
+# https://github.com/iglobal-developer/amlogic-s9xxx-openwrt
 # Description: Build OpenWrt with Image Builder
 # Instructions: https://openwrt.org/docs/guide-user/additional-software/imagebuilder
 # Download options: https://downloads.openwrt.org/releases
@@ -107,7 +107,7 @@ jobs:
 
       - name: Build OpenWrt firmware
         if: steps.imagebuilder.outputs.status == 'success' && !cancelled()
-        uses: ophub/amlogic-s9xxx-openwrt@main
+        uses: iglobal-developer/amlogic-s9xxx-openwrt@main
         with:
           openwrt_path: openwrt/bin/targets/*/*/*rootfs.tar.gz
           openwrt_soc: ${{ github.event.inputs.openwrt_soc }}
