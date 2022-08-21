@@ -48,7 +48,7 @@ svn co https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/
 # ------------------------------- Other ends -------------------------------
 rm -rf package/lean/luci-theme-argon
 git clone https://github.com/iglobal-developer/luci-theme-argon.git package/lean/luci-theme-argon
-rm -rf package/lean/luci
+rm -rf package/luci
 git clone https://github.com/iglobal-developer/luci.git package/luci
 git clone https://github.com/iglobal-developer/openwrt-v2ray.git package/v2ray-core
 git clone https://iglobal-developer:$GITHUB_TOKEN@github.com/iglobal-developer/vsocks.git package/vsocks-app-vproxy
