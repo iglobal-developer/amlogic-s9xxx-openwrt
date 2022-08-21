@@ -566,7 +566,7 @@ EOF
     fi
 
     # Add firmware information
-    # echo "PLATFORM='amlogic'" >>${op_release} 2>/dev/null
+    echo "PLATFORM='amlogic'" >>${op_release} 2>/dev/null
     echo "FDTFILE='${FDTFILE}'" >>${op_release} 2>/dev/null
     echo "UBOOT_OVERLOAD='${UBOOT_OVERLOAD}'" >>${op_release} 2>/dev/null
     echo "MAINLINE_UBOOT='/lib/u-boot/${MAINLINE_UBOOT}'" >>${op_release} 2>/dev/null
