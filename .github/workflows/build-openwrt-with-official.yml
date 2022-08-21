@@ -112,6 +112,8 @@ jobs:
         run: cd openwrt && ./scripts/feeds install -a
 
       - name: Load custom configuration
+        env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           [[ -d "files" ]] && mv -f files openwrt/files
           [[ -e ${CONFIG_FILE} ]] && cp -f ${CONFIG_FILE} openwrt/.config
