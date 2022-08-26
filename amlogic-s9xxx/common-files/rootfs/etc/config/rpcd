@@ -1,0 +1,19 @@
+config rpcd
+        option socket '/var/run/ubus/ubus.sock'
+        option timeout '30'
+
+config login
+        option username 'root'
+        option password '$p$root'
+        list read '*'
+        list write '*'
+
+config login
+        option username 'admin'
+        option timeout '300'
+        list read 'luci-base'
+        list read 'luci-mod-status-index'
+        list read 'luci-mod-status-realtime'
+        list read 'unauthenticated'
+        list write 'luci-mod-status-realtime'
+        option password '$1$$t8Daliw9HS.UDL/mIQO5A/'

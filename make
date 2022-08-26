@@ -52,7 +52,7 @@ configfiles_path="${amlogic_path}/common-files"
 bootfs_path="${configfiles_path}/bootfs"
 openvfd_path="${configfiles_path}/rootfs/usr/share/openvfd"
 # Add custom openwrt firmware information
-op_release="etc/vsocks-release"
+op_release="etc/flippy-openwrt-release"
 # Dependency files download repository
 depends_repo="https://github.com/ophub/amlogic-s9xxx-armbian/tree/main/build-armbian"
 # Install/Update script files download repository

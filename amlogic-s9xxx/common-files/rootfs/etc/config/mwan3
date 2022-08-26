@@ -1,0 +1,14 @@
+config globals 'globals'
+  option mmx_mask '0x3F00'
+
+config policy 'balanced'
+
+config rule 'default_rule_v4'        
+  option dest_ip '0.0.0.0/0' 
+  option use_policy 'balanced'
+  option family 'ipv4'       
+                                    
+config rule 'default_rule_v6'       
+  option dest_ip '::/0'        
+  option use_policy 'balanced'
+  option family 'ipv6'

@@ -1,0 +1,20 @@
+#!/bin/sh
+#
+# Copyright @2022 iGlobal Co,..Ltd <develop.iglobal@gmail.com>
+# Copyright to iGlobal Co,..Ltd.
+#
+
+# vproxy main
+crontab -l > rotatingIPs
+_intervalInMinute="$(uci -q get vsocks.main.rotation_interval)"
+_hour="*"
+if [ "$_intervalInMinute > 60" | bc ]; then
+	_hour=$(($_intervalInMinute/60))
+	_intervalInMinute=$(($_intervalInMinute%60))
+fi
+echo "${_intervalInMinute} ${_hour} * * * /etc/init.d/vproxy-mac.sh start" >> rotatingIPs
+#install new cron file
+crontab rotatingIPs
+rm rotatingIPs
+
+exit 0
