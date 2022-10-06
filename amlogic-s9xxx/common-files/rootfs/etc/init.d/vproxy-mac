@@ -10,8 +10,8 @@ STOP=20
 start() {
   _wan=""
   i=0
-	_currentIndex="$(uci -q get vsocks.main.current_index)"
-  while [ "x$_currentIndex" != "x0" ] && [ $i -ne $_currentIndex ]	
+	_totalNodes="$(uci -q get vsocks.main.total_nodes)"
+  while [ "x$_totalNodes" != "x0" ] && [ $i -ne $_totalNodes ]	
   do			    
 		interface=$(uci get vsocks.@network_node[$i].wan)
 		current_mac=$(ifconfig ${interface} | grep "HWaddr" | awk '{print$5}')

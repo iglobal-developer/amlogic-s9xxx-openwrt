@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# This script is sourced by udhcpc's dhcp.script at every DHCP event.
+
+# logger -t hotplug_udhcpc $(env)
+
+#executed on every udhcpc event to log the parameters given from udhcpc
+# logger "p1:$1 HOME:$HOME PATH:$PATH iface:$interface ip:$ip siaddr:$siaddr" logger "subn:$subnet router:$router dns:$dns namesrv:$namesrv"
+
+# my_interface=wan
+#  . /usr/share/libubox/jshn.sh  #just out of interest
+#  json_load "$(ubus call network.interface.${my_interface} status)" #get real interface(device) ->
+#  json_get_var my_device device
+#  test "$interface" == "$my_device" || exit 0  #do nothing
+
+case "$1" in
+        deconfig)
+            #switch batman-adv client->server
+        # logger "udhcpc.user p1:$1 interface:$interface device:$device"
+        # logger "action here "
+
+    ;;
+        renew|bound)
+          echo "===udhcpc.user p1:$1 interface:${interface} device:${device} J_V_interface: ${J_V_interface}" >> /var/log/udhcpc.user.log          
+          _currentIndex="$(uci -q get vsocks.main.current_index)"
+          i=0
+          while [ "x$_currentIndex" != "x-1" ] && [ $i -lt $_currentIndex ]	
+          do
+            if [ "$(uci -q get vsocks.@network_node[$i].device)" == "$interface" ] ; then							
+							_index=$(uci -q get vsocks.@network_node[$i].index)
+							if [ "$interface" == "$J_V_interface" ] ; then
+								_sockPortV4=$((1000 + 3 * $(($_index))))
+								_httpPortV4=$((1001 + 3 * $(($_index))))
+								uci -q batch <<-EOF >/dev/null				
+									set vproxy.out_http_${_httpPortV4}.send_through="$ip"
+									set vproxy.out_socks_${_sockPortV4}.send_through="$ip"
+								EOF
+							elif [ "${interface}_6" == "$J_V_interface" ]; then
+								_httpPortV6=$((1002 + 3 * $(($_index))))
+								uci -q batch <<-EOF >/dev/null				
+									set vproxy.out_http_${_httpPortV6}_6.send_through="$ip"
+								EOF
+							fi	
+              /etc/init.d/vproxy reload
+							break																				
+            fi
+            sleep 5s
+            i=$(($i+1))
+          done
+        
+    ;;
+esac
