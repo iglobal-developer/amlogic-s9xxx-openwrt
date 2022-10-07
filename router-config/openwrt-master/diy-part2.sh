@@ -18,10 +18,7 @@ sed -i 's/nobody:\*:0:0:99999:7:::/nobody:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0
 # Set etc/openwrt_release
 grep -v "DISTRIB_DESCRIPTION=" package/base-files/files/etc/openwrt_release > tmpFile && mv tmpFile package/base-files/files/etc/openwrt_release
 echo "DISTRIB_DESCRIPTION='VSocks V1.0'" >>package/base-files/files/etc/openwrt_release
-grep -v "luciname    = " package/base-files/files/usr/lib/lua/luci/version.lua  > tmpFile  && mv tmpFile package/base-files/files/usr/lib/lua/luci/version.lua
-echo "luciname    = VPROXY" >> package/base-files/files/usr/lib/lua/luci/version.lua
-grep -v "luciversion = " package/base-files/files/usr/lib/lua/luci/version.lua  > tmpFile  && mv tmpFile package/base-files/files/usr/lib/lua/luci/version.lua
-echo "luciversion = V1.0" >> package/base-files/files/usr/lib/lua/luci/version.lua
+
 sed -i "s|DISTRIB_REVISION='.*'|DISTRIB_REVISION='R$(date +%Y.%m.%d)'|g" package/base-files/files/etc/openwrt_release
 echo "DISTRIB_SOURCECODE='openwrt.master'" >>package/base-files/files/etc/openwrt_release
 
@@ -55,6 +52,16 @@ rm -rf package/lean/luci-theme-argon
 git clone https://github.com/iglobal-developer/luci-theme-argon.git package/lean/luci-theme-argon
 rm -rf package/luci
 git clone https://github.com/iglobal-developer/luci.git package/luci
+
+grep -v "luciname    = " package/luci/modules/luci-base/luasrc/version.lua  > tmpFile  && mv tmpFile package/luci/modules/luci-base/luasrc/version.lua
+echo "luciname    = VPROXY" >> package/luci/modules/luci-base/luasrc/version.lua
+grep -v "luciversion = " package/luci/modules/luci-base/luasrc/version.lua  > tmpFile  && mv tmpFile package/luci/modules/luci-base/luasrc/version.lua
+echo "luciversion = V1.0" >> package/luci/modules/luci-base/luasrc/version.lua
+
+sed -i 's/luci/vsocks/g' package/luci/modules/luci-base/root/www/index.html
+sed -i 's/LuCI - Lua/VSocks/g' package/luci/modules/luci-base/root/www/index.html
+mv package/luci/modules/luci-base/htdocs/cgi-bin/luci package/luci/modules/luci-base/htdocs/cgi-bin/vsocks
+
 git clone -b master --depth 1 https://github.com/kuoruan/openwrt-upx.git package/openwrt-upx
 git clone https://github.com/iglobal-developer/openwrt-v2ray.git package/v2ray-core
 git clone -b package "https://iglobal-developer:"$GITHUB_CHECKOUT"@github.com/iglobal-developer/vsocks.git" package/vsocks-app-vproxy
