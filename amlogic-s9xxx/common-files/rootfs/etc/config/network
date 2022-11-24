@@ -10,6 +10,7 @@ config globals 'globals'
 config device
         option name 'br-lan'
         option type 'bridge'
+        option metric '1'
         list ports 'eth0'
 
 config interface 'lan'
